@@ -25,13 +25,16 @@ function url_param_replace($id,$value,$url=''){
 
 <?php
 /*USAGE*/
-//replace single parameter value from current URL
+//replace or add single parameter value from current URL
 echo url_param_replace('param_name','param_value');
-//replace multiple parameter values from current URL
+//replace or add multiple parameter values from current URL
 echo url_param_replace(array('param_name1',$param_name2),array('param_value1',$param_value2) );
 
-//replace multiple parameter values to provided URL
-echo url_param_replace(array('x','y'),array('1','2'),'https://www.website.com/?x=test&y=test');
+//remove multiple parameter values from current URL using empty values
+echo url_param_replace(array('param_name1',$param_name2),array('','') );
+
+//replace and add multiple parameter values to provided URL
+echo url_param_replace(array('x','y','z),array('1','2','3'),'https://www.website.com/?x=test&y=test');
 //add multiple parameter values to provided URL
 echo url_param_replace(array('x','y'),array('1','2'),'https://www.website.com/');
 ?>
