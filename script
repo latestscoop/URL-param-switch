@@ -1,0 +1,37 @@
+<?php
+function url_param_replace($id,$value,$url=''){
+	if($url == ''){
+		$url = $_SERVER['REQUEST_URL'];
+	}
+	parse_str(parse_url($url)['query'],$params);
+	if(is_array($id) !== false && is_array($value) !== false){//if multiple
+		for($i=0;$i<count($id);$i++){
+			if($value == ''){
+				unset($params[$id][$i]);
+			}else{
+				$params[$id[$i]] = $value[$i];
+			}
+		}
+	}else{
+		if($value == ''){
+			unset($params[$id]);
+		}else{
+			$params[$id] = $value;
+		}
+	}
+	return strtok($url,'?') . '?' . http_build_query($params);
+}
+?>
+
+<?php
+/*USAGE*/
+//replace single parameter value from current URL
+echo url_param_replace('param_name','param_value');
+//replace multiple parameter values from current URL
+echo url_param_replace(array('param_name1',$param_name2),array('param_value1',$param_value2) );
+
+//replace multiple parameter values to provided URL
+echo url_param_replace(array('x','y'),array('1','2'),'https://www.website.com/?x=test&y=test');
+//add multiple parameter values to provided URL
+echo url_param_replace(array('x','y'),array('1','2'),'https://www.website.com/');
+?>
