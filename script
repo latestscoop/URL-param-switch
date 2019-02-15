@@ -1,7 +1,7 @@
 <?php
 function url_param_replace($id,$value,$url=''){
 	if($url == ''){
-		$url = $_SERVER['REQUEST_URL'];
+		$url = $_SERVER['REQUEST_URI'];
 	}
 	parse_str(parse_url($url)['query'],$params);
 	if(is_array($id) !== false && is_array($value) !== false){//if multiple
@@ -19,6 +19,7 @@ function url_param_replace($id,$value,$url=''){
 			$params[$id] = $value;
 		}
 	}
+	//print_r($params);
 	return strtok($url,'?') . '?' . http_build_query($params);
 }
 ?>
